@@ -1,30 +1,27 @@
-const express = require('express')
-const router = express.Router()
+const express = require("express");
+const router = express.Router();
 
-const movies = require('../data/movies')
+const movies = require("../data/movies");
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' })
-})
+router.get("/", function(req, res, next) {
+  res.render("index", { title: "Express" });
+});
 
-router.get('/most_popular', (req, res, next) => {
-  let page = req.query.page
-  if(page === undefined) { page = 1 }
+// GET /most_popular
+router.get("/most_popular", (req, res, next) => {
+  let page = req.query.page;
+  if (page === undefined) { page = 1; }
 
-  if(req.query.api_key != 123456789) {
-    res.json("Invalid API Key")
-  } else {
-    let results = movies.filter((movie) => {
-      return movie.most_popular 
-    })
-    const indexToStart = (page -1) * 20
-    results = results.slice(indexToStart, indexToStart + 19)
-    res.json({
-      page,
-      results: results 
-    })
-  }
-})
+  let results = movies.filter(movie => {
+    return movie.most_popular;
+  });
+  const indexToStart = (page - 1) * 20;
+  results = results.slice(indexToStart, indexToStart + 19);
+  res.json({
+    page,
+    results: results
+  });
+});
 
-module.exports = router
+module.exports = router;
