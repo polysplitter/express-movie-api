@@ -30,6 +30,13 @@ router.get('/top_rated', (req, res, next) => {
     res.json(result.slice(indexToStart, indexToStart + 19))
 })
 
+router.get('/names', (req, res, next) => {
+    const result = movieDetails.map((movie) => {
+        return movie.title
+    })
+    res.json(result)
+})
+
 // GET /movie/movieId
 router.get("/:movieId", (req, res, next) => {
     const movieId = req.params.movieId;
